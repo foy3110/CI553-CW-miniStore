@@ -9,10 +9,26 @@ import java.util.Collections;
  * @author  Your Name 
  * @version 1.0
  */
-public class BetterBasket extends Basket implements Serializable
+public class BetterBasket extends Basket
 {
-  private static final long serialVersionUID = 1L;
-  
+  @Override
+  public boolean add( Product pr )
+  {
+    for(Product prInlist: this){
+      if(prInlist.getProductNum().equals(pr.getProductNum())){// if the new item added has the same product number
+        int quantity = pr.getQuantity()+prInlist.getQuantity();//adds the new number to quantity
+        prInlist.setQuantity(quantity);//sets the list item to quantity
+        return(true);
+
+      }
+    }
+    return super.add( pr );     // Call add in ArrayList
+  }
+  public boolean sorty(Product pr){
+
+   return(true);
+  }
+
 
   // You need to add code here
   // merge the items for same product,
