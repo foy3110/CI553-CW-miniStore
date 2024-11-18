@@ -6,6 +6,9 @@ import catalogue.Product;
 import debug.DEBUG;
 import middle.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -41,7 +44,18 @@ public class CashierModel extends Observable
     }
     theState   = State.process;                  // Current state
   }
-  
+  public void sortBasket(){
+      for (int i = 0; i < theBasket.size(); i++) {
+        DEBUG.trace(theBasket.get(i).getProductNum());
+      }
+    }
+
+
+
+
+
+
+
   /**
    * Get the Basket of products
    * @return basket
@@ -116,6 +130,8 @@ public class CashierModel extends Observable
           theBasket.add( theProduct );          //  Add to bought
           theAction = "Purchased " +            //    details
                   theProduct.getDescription();  //
+          System.out.println("basket");// Add an order number
+          sortBasket();
         } else {                                // F
           theAction = "!!! Not in stock";       //  Now no stock
         }
@@ -178,7 +194,8 @@ public class CashierModel extends Observable
       {
         int uon   = theOrder.uniqueNumber();     // Unique order num.
         theBasket = makeBasket();                //  basket list
-        theBasket.setOrderNum( uon );            // Add an order number
+        theBasket.setOrderNum( uon );
+
       } catch ( OrderException e )
       {
         DEBUG.error( "Comms failure\n" +
@@ -193,6 +210,7 @@ public class CashierModel extends Observable
    */
   protected BetterBasket makeBasket()
   {
+
     return new BetterBasket();
   }//altererd from basket to betterBaskets
 }

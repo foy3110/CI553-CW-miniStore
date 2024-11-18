@@ -16,26 +16,31 @@ public class Product
   private double thePrice;            // Price of product
   private int    theQuantity;         // Quantity involved
 
+  private  int theMinQuantity;
+
   /**
    * Construct a product details
    * @param aProductNum Product number
    * @param aDescription Description of product
    * @param aPrice The price of the product
    * @param aQuantity The Quantity of the product involved
+   * @param aMinQuantity the minimum quantity of product
    */
   public Product( String aProductNum, String aDescription,
-                  double aPrice, int aQuantity )
+                  double aPrice, int aQuantity , int aMinQuantity)
   {
     theProductNum  = aProductNum;     // Product number
     theDescription = aDescription;    // Description of product
     thePrice       = aPrice;          // Price of product
     theQuantity    = aQuantity;       // Quantity involved
+    theMinQuantity = aMinQuantity;
   }
   
   public String getProductNum()  { return theProductNum; }
   public String getDescription() { return theDescription; }
   public double getPrice()       { return thePrice; }
   public int    getQuantity()    { return theQuantity; }
+  public int getMinQuantity() {return theMinQuantity; }
   
   public void setProductNum( String aProductNum )
   { 
@@ -57,4 +62,7 @@ public class Product
     theQuantity = aQuantity;
   }
 
+  public void setMinQuantity(int minQuantity) {
+    minQuantity = minQuantity;
+  }
 }

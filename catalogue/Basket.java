@@ -1,6 +1,5 @@
 package catalogue;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Currency;
 import java.util.Formatter;
