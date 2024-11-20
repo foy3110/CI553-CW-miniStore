@@ -1,5 +1,6 @@
 package clients.backDoor;
 
+import debug.DEBUG;
 import middle.MiddleFactory;
 import middle.StockReadWriter;
 
@@ -17,6 +18,7 @@ public class BackDoorView implements Observer
   private static final String RESTOCK  = "Add";
   private static final String CLEAR    = "Clear";
   private static final String QUERY    = "Query";
+  private static final String MINSTOCK = "Add Min";
  
   private static final int H = 300;       // Height of window pixels
   private static final int W = 400;       // Width  of window pixels
@@ -30,6 +32,7 @@ public class BackDoorView implements Observer
   private final JButton     theBtClear = new JButton( CLEAR );
   private final JButton     theBtRStock = new JButton( RESTOCK );
   private final JButton     theBtQuery = new JButton( QUERY );
+  private final JButton theMinQuantity = new JButton(MINSTOCK);
   
   private StockReadWriter theStock     = null;
   private BackDoorController cont= null;
@@ -78,7 +81,11 @@ public class BackDoorView implements Observer
       e -> cont.doClear() );
     cp.add( theBtClear );                           //  Add to canvas
 
- 
+    theMinQuantity.setBounds(16,25+60*3,80,40);
+    theMinQuantity.addActionListener(
+    e -> cont.doMin(theInput.getText(),theInputNo.getText()) );
+    cp.add(theMinQuantity);
+
     theAction.setBounds( 110, 25 , 270, 20 );       // Message area
     theAction.setText( "" );                        // Blank
     cp.add( theAction );                            //  Add to canvas

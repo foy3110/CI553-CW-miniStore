@@ -28,7 +28,7 @@ public class BackDoorModel extends Observable
   public BackDoorModel(MiddleFactory mf)
   {
     try                                           // 
-    {      
+    {
       theStock = mf.makeStockReadWriter();        // Database access
     } catch ( Exception e )
     {
@@ -37,7 +37,7 @@ public class BackDoorModel extends Observable
 
     theBasket = makeBasket();                     // Initial Basket
   }
-  
+
   /**
    * Get the Basket of products
    * @return basket
@@ -57,7 +57,7 @@ public class BackDoorModel extends Observable
   }
 
   /**
-   * Query 
+   * Query
    * @param productNum The product number of the item
    */
   public void doQuery(String productNum )
@@ -77,7 +77,7 @@ public class BackDoorModel extends Observable
       } else {                                  //  F
         theAction =                             //   Inform
           "Unknown product number " + pn;       //  product number
-      } 
+      }
     } catch( StockException e )
     {
       theAction = e.getMessage();
@@ -86,7 +86,7 @@ public class BackDoorModel extends Observable
   }
 
   /**
-   * Re stock 
+   * Re stock
    * @param productNum The product number of the item
    * @param quantity How many to be added
    */
@@ -112,7 +112,7 @@ public class BackDoorModel extends Observable
         setChanged(); notifyObservers(theAction);
         return;
       }
-  
+
       if ( theStock.exists( pn ) )              // Stock Exists?
       {                                         // T
         theStock.addStock(pn, amount);          //  Re stock
@@ -122,7 +122,7 @@ public class BackDoorModel extends Observable
       } else {                                  // F
         theAction =                             //  Inform Unknown
           "Unknown product number " + pn;       //  product number
-      } 
+      }
     } catch( StockException e )
     {
       theAction = e.getMessage();
@@ -140,7 +140,46 @@ public class BackDoorModel extends Observable
     theAction = "Enter Product Number";       // Set display
     setChanged(); notifyObservers(theAction);  // inform the observer view that model changed
   }
-  
+  public void doAddMin(String productNum,String minQuantity){
+    DEBUG.trace("bruu");
+    String theAction = "";
+    theBasket = makeBasket();
+    pn  = productNum.trim();                    // Product no.
+    String pn  = productNum.trim();             // Product no.
+    int amount = 0;
+    try
+    {
+      String aQuantity = minQuantity.trim();
+      try
+      {
+        amount = Integer.parseInt(aQuantity);   // Convert
+        if ( amount < 0 )
+          throw new NumberFormatException("-ve");
+      }
+      catch ( Exception err)
+      {
+        theAction = "Invalid quantity";
+        setChanged(); notifyObservers(theAction);
+        return;
+      }
+
+      if ( theStock.exists( pn ) )              // Stock Exists?
+      {                                         // T
+        theStock.addStock(pn, amount);          //  Re stock
+        Product pr = theStock.getDetails(pn);   //  Get details
+        theBasket.add(pr);                      //
+        theAction = "";                         // Display
+      } else {                                  // F
+        theAction =                             //  Inform Unknown
+                "Unknown product number " + pn;       //  product number
+      }
+    } catch( StockException e )
+    {
+      theAction = e.getMessage();
+    }
+    setChanged(); notifyObservers(theAction);
+  }
+
   /**
    * return an instance of a Basket
    * @return a new instance of a Basket
