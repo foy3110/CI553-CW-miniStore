@@ -45,4 +45,6 @@ public class CashierController
   {
     model.doBought();
   }
+
+  public void doSort(){model.doSort();}
 }

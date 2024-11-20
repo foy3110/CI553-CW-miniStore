@@ -43,6 +43,9 @@ class Setup
      "('0006', 'MP3 player',        'images/pic0006.jpg', 7.99)",
   "insert into ProductTable values " +
      "('0007', '32Gb USB2 drive',   'images/pic0007.jpg', 6.99)",
+          "insert into ProductTable values " +
+                  "('0008', '64Gb USB2 drive',   'images/pic0007.jpg', 13.88)",
+
 //  "select * from ProductTable",
 
 
@@ -58,8 +61,10 @@ class Setup
   "insert into StockTable values ( '0005',  17 )",
   "insert into StockTable values ( '0006',  15 )",
   "insert into StockTable values ( '0007',  01 )",
+          "insert into StockTable values ( '0008',  01 )",
 
-  "select * from StockTable, ProductTable " +
+
+          "select * from StockTable, ProductTable " +
           " where StockTable.productNo = ProductTable.productNo"
 
  };

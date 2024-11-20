@@ -14,26 +14,25 @@ import java.util.Collections;
  */
 public class BetterBasket extends Basket
 {
+
   @Override
   public boolean add( Product pr )
   {
-    sorty(pr);
 
     for(Product prInlist: this){
       if(prInlist.getProductNum().equals(pr.getProductNum())){// if the new item added has the same product number
         int quantity = pr.getQuantity()+prInlist.getQuantity();//adds the new number to quantity
         prInlist.setQuantity(quantity);//sets the list item to quantity
+        this.sort();
         return(true);
 
       }
     }
     return super.add( pr );     // Call add in ArrayList
   }
-  public boolean sorty(Product pr) {
-  for(Product prInlist: this){
-    DEBUG.trace(prInlist.getProductNum());
-  }
-    return(true);
+  public boolean sorty( ) {
+
+    return(false);
 
   }
 

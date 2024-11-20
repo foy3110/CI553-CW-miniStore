@@ -1,9 +1,8 @@
 package catalogue;
 
-import java.util.ArrayList;
-import java.util.Currency;
-import java.util.Formatter;
-import java.util.Locale;
+import debug.DEBUG;
+
+import java.util.*;
 
 /**
  * A collection of products,
@@ -30,6 +29,7 @@ public class Basket extends ArrayList<Product>
    * Valid order Numbers 1 .. N
    * @param anOrderNum A unique order number
    */
+
   public void setOrderNum( int anOrderNum )
   {
     theOrderNum = anOrderNum;
@@ -43,7 +43,14 @@ public class Basket extends ArrayList<Product>
   {
     return theOrderNum;
   }
-  
+
+
+  public void sort() {
+    if ( this.size() > 1 ){
+      Collections.sort(this, (p1, p2) -> p1.getProductNum().compareTo(p2.getProductNum()));
+
+    }
+  }
   /**
    * Add a product to the Basket.
    * Product is appended to the end of the existing products
@@ -55,6 +62,8 @@ public class Basket extends ArrayList<Product>
   @Override
   public boolean add( Product pr )
   {                              
+
+
     return super.add( pr );     // Call add in ArrayList
   }
 
@@ -71,7 +80,7 @@ public class Basket extends ArrayList<Product>
     double total = 0.00;
     if ( theOrderNum != 0 )
       fr.format( "Order number: %03d\n", theOrderNum );
-      
+      this.sort();
     if ( this.size() > 0 )
     {
       for ( Product pr: this )

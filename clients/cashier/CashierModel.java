@@ -44,11 +44,13 @@ public class CashierModel extends Observable
     }
     theState   = State.process;                  // Current state
   }
+
+
   public void sortBasket(){
-      for (int i = 0; i < theBasket.size(); i++) {
-        DEBUG.trace(theBasket.get(i).getProductNum());
+
+
       }
-    }
+
 
 
 
@@ -126,12 +128,11 @@ public class CashierModel extends Observable
             theProduct.getQuantity() );         //
         if ( stockBought )                      // Stock bought
         {                                       // T
-          makeBasketIfReq();                    //  new Basket ?
+          makeBasketIfReq(0);                    //  new Basket ?
           theBasket.add( theProduct );          //  Add to bought
           theAction = "Purchased " +            //    details
                   theProduct.getDescription();  //
           System.out.println("basket");// Add an order number
-          sortBasket();
         } else {                                // F
           theAction = "!!! Not in stock";       //  Now no stock
         }
@@ -144,7 +145,9 @@ public class CashierModel extends Observable
     }
     theState = State.process;                   // All Done
     setChanged(); notifyObservers(theAction);
+
   }
+
   
   /**
    * Customer pays for the contents of the basket
@@ -186,7 +189,7 @@ public class CashierModel extends Observable
   /**
    * make a Basket when required
    */
-  private void makeBasketIfReq()
+  private void makeBasketIfReq(int baskNum)
   {
     if ( theBasket == null )
     {
@@ -203,7 +206,9 @@ public class CashierModel extends Observable
       }
     }
   }
-
+  public void doSort(){
+    sortBasket();
+  }
   /**
    * return an instance of a new Basket
    * @return an instance of a new Basket

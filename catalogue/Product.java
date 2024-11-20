@@ -15,7 +15,6 @@ public class Product
   private String theDescription;      // Description of product
   private double thePrice;            // Price of product
   private int    theQuantity;         // Quantity involved
-
   private  int theMinQuantity;
 
   /**
