@@ -2,6 +2,7 @@ package clients.backDoor;
 
 
 import debug.DEBUG;
+import middle.StockException;
 
 /**
  * The BackDoor Controller
@@ -53,10 +54,12 @@ public class BackDoorController
    * @param pn       The product number to be re-stocked
    * @param minQuantity The quantity to be re-stocked
    */
-  public void doMin(String pn, String minQuantity){
+  public void doMin(String pn, String minQuantity) {
     DEBUG.trace("doAddMin");
+    System.out.println("doAddMin controller");
+    model.doAddMin(pn, minQuantity);
 
-    model.doAddMin(pn, minQuantity);}
+  }
 
 }
 

@@ -1,5 +1,6 @@
 package middle;
 
+import debug.DEBUG;
 import remote.R_Order;
 import remote.R_StockR;
 import remote.R_StockRW;
@@ -46,6 +47,7 @@ class Server
       LocateRegistry.createRegistry(1099);
       String IPAddress = InetAddress.getLocalHost().getHostAddress();
       System.out.println("Server IP address " + IPAddress );
+      DEBUG.trace( "Server IP address " + IPAddress );
     } catch (Exception e)
     {
        System.out.println("Fail Starting rmiregistry" + e.getMessage() );

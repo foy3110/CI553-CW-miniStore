@@ -17,7 +17,7 @@ public class BackDoorModel extends Observable
 {
   private Basket      theBasket  = null;            // Bought items
   private String      pn = "";                      // Product being processed
-
+  private Product     pr;
   private StockReadWriter theStock     = null;
 
   /*
@@ -68,12 +68,15 @@ public class BackDoorModel extends Observable
     {                 //  & quantity
       if ( theStock.exists( pn ) )              // Stock Exists?
       {                                         // T
-        Product pr = theStock.getDetails( pn ); //  Product
+         pr = theStock.getDetails( pn ); //  Product
         theAction =                             //   Display 
-          String.format( "%s : %7.2f (%2d) ",   //
+          String.format( "%s : %7.2f (%2d) (%2d)",   //
           pr.getDescription(),                  //    description
           pr.getPrice(),                        //    price
-          pr.getQuantity() );                   //    quantity
+          pr.getQuantity(),
+                  pr.getMinQuantity());
+        System.out.println(pr.theMinQuantity);
+         //    quantity
       } else {                                  //  F
         theAction =                             //   Inform
           "Unknown product number " + pn;       //  product number
@@ -140,44 +143,48 @@ public class BackDoorModel extends Observable
     theAction = "Enter Product Number";       // Set display
     setChanged(); notifyObservers(theAction);  // inform the observer view that model changed
   }
-  public void doAddMin(String productNum,String minQuantity){
-    DEBUG.trace("bruu");
-    String theAction = "";
-    theBasket = makeBasket();
-    pn  = productNum.trim();                    // Product no.
-    String pn  = productNum.trim();             // Product no.
-    int amount = 0;
-    try
+  public void doAddMin(String productNum,String mAmount) {
     {
-      String aQuantity = minQuantity.trim();
+      String theAction = "";
+      theBasket = makeBasket();
+      pn  = productNum.trim();                    // Product no.
+      String pn  = productNum.trim();             // Product no.
+      int amount = 0;
       try
       {
-        amount = Integer.parseInt(aQuantity);   // Convert
-        if ( amount < 0 )
-          throw new NumberFormatException("-ve");
-      }
-      catch ( Exception err)
-      {
-        theAction = "Invalid quantity";
-        setChanged(); notifyObservers(theAction);
-        return;
-      }
+        String mQuantity = mAmount.trim();
+        try
+        {
+          amount = Integer.parseInt(mQuantity);   // Convert
+          if ( amount < 0 )
+            throw new NumberFormatException("-ve");
+        }
+        catch ( Exception err)
+        {
+          theAction = "Invalid quantity";
+          setChanged(); notifyObservers(theAction);
+          return;
+        }
 
-      if ( theStock.exists( pn ) )              // Stock Exists?
-      {                                         // T
-        theStock.addStock(pn, amount);          //  Re stock
-        Product pr = theStock.getDetails(pn);   //  Get details
-        theBasket.add(pr);                      //
-        theAction = "";                         // Display
-      } else {                                  // F
-        theAction =                             //  Inform Unknown
-                "Unknown product number " + pn;       //  product number
+        if ( theStock.exists( pn ) )              // Stock Exists?
+        {                                         // T
+          theStock.addMin(pn,amount);          //  Re stock
+          Product pr = theStock.getDetails(pn);   //  Get details
+          theBasket.add(pr);                      //
+          theAction = "";                         // Display
+        } else {                                  // F
+          theAction =                             //  Inform Unknown
+                  "Unknown product number " + pn;       //  product number
+        }
+      } catch( StockException e )
+      {
+        theAction = e.getMessage();
       }
-    } catch( StockException e )
-    {
-      theAction = e.getMessage();
+      setChanged(); notifyObservers(theAction);
     }
-    setChanged(); notifyObservers(theAction);
+  }
+  public void minimumReached(){
+
   }
 
   /**

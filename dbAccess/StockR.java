@@ -121,7 +121,7 @@ public class StockR implements StockReader
     {
       Product   dt = new Product( "0", "", 0.00, 0 ,0);
       ResultSet rs = getStatementObject().executeQuery(
-        "select description, price, stockLevel " +
+        "select description, price, stockLevel, minQuant " +//added  in min quant function
         "  from ProductTable, StockTable " +
         "  where  ProductTable.productNo = '" + pNum + "' " +
         "  and    StockTable.productNo   = '" + pNum + "'"
@@ -132,6 +132,7 @@ public class StockR implements StockReader
         dt.setDescription(rs.getString( "description" ) );
         dt.setPrice( rs.getDouble( "price" ) );
         dt.setQuantity( rs.getInt( "stockLevel" ) );
+        dt.setMinQuantity(rs.getInt( "minQuant"));
       }
       rs.close();
       return dt;

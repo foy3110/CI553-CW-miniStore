@@ -24,6 +24,7 @@ public class BetterBasket extends Basket
         int quantity = pr.getQuantity()+prInlist.getQuantity();//adds the new number to quantity
         prInlist.setQuantity(quantity);//sets the list item to quantity
         this.sort();
+
         return(true);
 
       }

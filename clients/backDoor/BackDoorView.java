@@ -83,7 +83,7 @@ public class BackDoorView implements Observer
 
     theMinQuantity.setBounds(16,25+60*3,80,40);
     theMinQuantity.addActionListener(
-    e -> cont.doMin(theInput.getText(),theInputNo.getText()) );
+    e -> cont.doMin(theInput.getText(), theInputNo.getText()));
     cp.add(theMinQuantity);
 
     theAction.setBounds( 110, 25 , 270, 20 );       // Message area

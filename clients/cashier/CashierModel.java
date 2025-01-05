@@ -95,6 +95,7 @@ public class CashierModel extends Observable
         } else {                                //  F
           theAction =                           //   Not in Stock
             pr.getDescription() +" not in stock";
+
         }
       } else {                                  // F Stock exists
         theAction =                             //  Unknown
@@ -125,14 +126,21 @@ public class CashierModel extends Observable
         boolean stockBought =                   // Buy
           theStock.buyStock(                    //  however
             theProduct.getProductNum(),         //  may fail              
-            theProduct.getQuantity() );         //
-        if ( stockBought )                      // Stock bought
+            theProduct.getQuantity() );           //
+          if ( stockBought )                    // Stock bought
         {                                       // T
           makeBasketIfReq(0);                    //  new Basket ?
           theBasket.add( theProduct );          //  Add to bought
           theAction = "Purchased " +            //    details
                   theProduct.getDescription();  //
-          System.out.println("basket");// Add an order number
+          System.out.println(theProduct.getQuantity());// Add an order number
+          String pn = theProduct.getProductNum().trim();//pn for stock
+
+          if ((theStock.getDetails(pn).getQuantity() ) == 0 && theProduct.getMinQuantity()>0){ //feature added if stock belows minimum quant adds it automatically
+            System.out.println("Prod 0");
+            theStock.addStock(pn, theProduct.getMinQuantity());//adds the stock to the system
+
+          }
         } else {                                // F
           theAction = "!!! Not in stock";       //  Now no stock
         }

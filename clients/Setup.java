@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @version 3.0 Derby
  */
 
-class Setup 
+class Setup
 {
   private static String[] sqlStatements = {
 
@@ -22,52 +22,53 @@ class Setup
 //  "drop table StockList",
 
 
-  "drop table ProductTable",
-  "create table ProductTable ("+
-      "productNo      Char(4)," +
-      "description    Varchar(40)," +
-      "picture        Varchar(80)," +
-      "price          Float)",
+          "drop table ProductTable",
+          "create table ProductTable ("+
+                  "productNo      Char(4)," +
+                  "description    Varchar(40)," +
+                  "picture        Varchar(80)," +
+                  "minQuant     Integer," + // added new sql for the minimum value
+                  "price          Float)",
 
-  "insert into ProductTable values " +
-     "('0001', '40 inch LED HD TV', 'images/pic0001.jpg', 269.00)",
-  "insert into ProductTable values " +
-     "('0002', 'DAB Radio',         'images/pic0002.jpg', 29.99)",
-  "insert into ProductTable values " +
-     "('0003', 'Toaster',           'images/pic0003.jpg', 19.99)",
-  "insert into ProductTable values " +
-     "('0004', 'Watch',             'images/pic0004.jpg', 29.99)",
-  "insert into ProductTable values " +
-     "('0005', 'Digital Camera',    'images/pic0005.jpg', 89.99)",
-  "insert into ProductTable values " +
-     "('0006', 'MP3 player',        'images/pic0006.jpg', 7.99)",
-  "insert into ProductTable values " +
-     "('0007', '32Gb USB2 drive',   'images/pic0007.jpg', 6.99)",
           "insert into ProductTable values " +
-                  "('0008', '64Gb USB2 drive',   'images/pic0007.jpg', 13.88)",
+                  "('0001', '40 inch LED HD TV', 'images/pic0001.jpg',0, 269.00)",
+          "insert into ProductTable values " +
+                  "('0002', 'DAB Radio',         'images/pic0002.jpg',0, 29.99)",
+          "insert into ProductTable values " +
+                  "('0003', 'Toaster',           'images/pic0003.jpg',0, 19.99)",
+          "insert into ProductTable values " +
+                  "('0004', 'Watch',             'images/pic0004.jpg',0, 29.99)",
+          "insert into ProductTable values " +
+                  "('0005', 'Digital Camera',    'images/pic0005.jpg',0, 89.99)",
+          "insert into ProductTable values " +
+                  "('0006', 'MP3 player',        'images/pic0006.jpg',0, 7.99)",
+          "insert into ProductTable values " +
+                  "('0007', '32Gb USB2 drive',   'images/pic0007.jpg',0, 6.99)",
+          "insert into ProductTable values " +
+                  "('0008', '64Gb USB2 drive',   'images/pic0007.jpg',10, 13.88)",
 
 //  "select * from ProductTable",
 
 
-  "drop table StockTable",
-  "create table StockTable ("+
-      "productNo      Char(4)," +
-      "stockLevel     Integer)",
+          "drop table StockTable",
+          "create table StockTable ("+
+                  "productNo      Char(4)," +
+                  "stockLevel     Integer)",
 
-  "insert into StockTable values ( '0001',  90 )",
-  "insert into StockTable values ( '0002',  20 )",
-  "insert into StockTable values ( '0003',  33 )",
-  "insert into StockTable values ( '0004',  10 )",
-  "insert into StockTable values ( '0005',  17 )",
-  "insert into StockTable values ( '0006',  15 )",
-  "insert into StockTable values ( '0007',  01 )",
+          "insert into StockTable values ( '0001',  90 )",
+          "insert into StockTable values ( '0002',  20 )",
+          "insert into StockTable values ( '0003',  33 )",
+          "insert into StockTable values ( '0004',  10 )",
+          "insert into StockTable values ( '0005',  17 )",
+          "insert into StockTable values ( '0006',  15 )",
+          "insert into StockTable values ( '0007',  01 )",
           "insert into StockTable values ( '0008',  01 )",
 
 
           "select * from StockTable, ProductTable " +
-          " where StockTable.productNo = ProductTable.productNo"
+                  " where StockTable.productNo = ProductTable.productNo"
 
- };
+  };
 
   public static void main(String[] args)
   {
@@ -80,14 +81,14 @@ class Setup
       dbDriver = (new DBAccessFactory()).getNewDBAccess();
       dbDriver.loadDriver();
       theCon  = DriverManager.getConnection
-                  ( dbDriver.urlOfDatabase(), 
-                    dbDriver.username(), 
-                    dbDriver.password() );
+              ( dbDriver.urlOfDatabase(),
+                      dbDriver.username(),
+                      dbDriver.password() );
     }
     catch ( SQLException e )
     {
-      System.err.println( "Problem with connection to " + 
-                           dbDriver.urlOfDatabase() );
+      System.err.println( "Problem with connection to " +
+              dbDriver.urlOfDatabase() );
       System.out.println("SQLException: " + e.getMessage());
       System.out.println("SQLState:     " + e.getSQLState());
       System.out.println("VendorError:  " + e.getErrorCode());
@@ -95,15 +96,15 @@ class Setup
     }
     catch ( Exception e )
     {
-        System.err.println("Can not load JDBC/ODBC driver.");
-        System.exit( -1 );
+      System.err.println("Can not load JDBC/ODBC driver.");
+      System.exit( -1 );
     }
 
     Statement stmt = null;
     try {
-        stmt = theCon.createStatement();
+      stmt = theCon.createStatement();
     } catch (Exception e) {
-        System.err.println("problems creating statement object" );
+      System.err.println("problems creating statement object" );
     }
 
     // execute SQL commands to create table, insert data
@@ -114,40 +115,40 @@ class Setup
         System.out.println( sqlStatement );
         switch ( sqlStatement.charAt(0) )
         {
-           case '/' :
-             System.out.println("------------------------------");
-             break;
-           case 's' :
-           case 'f' :
-             query( stmt, dbDriver.urlOfDatabase(), sqlStatement );
-             break;
-           case '*' :
-             if ( sqlStatement.length() >= 2 )
-               switch( sqlStatement.charAt(1)  )
-               {
-                 case 'c' :
-                   theCon.commit();
-                   break;
-                 case 'r' :
-                   theCon.rollback();
-                   break;
-                 case '+' :
-                   theCon.setAutoCommit( true );
-                   break;
-                 case '-' :
-                   theCon.setAutoCommit( false );
-                   break;
-                }
-              break;
-           default :
+          case '/' :
+            System.out.println("------------------------------");
+            break;
+          case 's' :
+          case 'f' :
+            query( stmt, dbDriver.urlOfDatabase(), sqlStatement );
+            break;
+          case '*' :
+            if ( sqlStatement.length() >= 2 )
+              switch( sqlStatement.charAt(1)  )
+              {
+                case 'c' :
+                  theCon.commit();
+                  break;
+                case 'r' :
+                  theCon.rollback();
+                  break;
+                case '+' :
+                  theCon.setAutoCommit( true );
+                  break;
+                case '-' :
+                  theCon.setAutoCommit( false );
+                  break;
+              }
+            break;
+          default :
             stmt.execute(sqlStatement);
         }
         //System.out.println();
       } catch (Exception e)
       {
         System.out.println("problems with SQL sent to " +
-                           dbDriver.urlOfDatabase() +
-                           "\n" + sqlStatement + "\n" + e.getMessage());
+                dbDriver.urlOfDatabase() +
+                "\n" + sqlStatement + "\n" + e.getMessage());
       }
     }
 
@@ -156,7 +157,7 @@ class Setup
     } catch (Exception e)
     {
       System.err.println("problems with close " +
-                         ": "+e.getMessage());
+              ": "+e.getMessage());
     }
 
   }
@@ -167,7 +168,7 @@ class Setup
     try
     {
       ResultSet res = stmt.executeQuery( stm );
-      
+
       ArrayList<String> names = new ArrayList<>(10);
 
       ResultSetMetaData md = res.getMetaData();
@@ -201,10 +202,10 @@ class Setup
     } catch (Exception e)
     {
       System.err.println("problems with SQL sent to "+url+
-                         "\n" + e.getMessage());
+              "\n" + e.getMessage());
     }
   }
-  
+
   private static String m( int len, String s )
   {
     if ( s.length() >= len )

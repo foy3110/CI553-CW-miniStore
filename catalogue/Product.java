@@ -15,7 +15,7 @@ public class Product
   private String theDescription;      // Description of product
   private double thePrice;            // Price of product
   private int    theQuantity;         // Quantity involved
-  private  int theMinQuantity;
+  public  int theMinQuantity;
 
   /**
    * Construct a product details
@@ -61,7 +61,8 @@ public class Product
     theQuantity = aQuantity;
   }
 
-  public void setMinQuantity(int minQuantity) {
-    minQuantity = minQuantity;
+  public void setMinQuantity(int aMinQuantity) {
+    theMinQuantity = aMinQuantity;
+    System.out.println(aMinQuantity );
   }
 }

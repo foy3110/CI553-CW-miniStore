@@ -91,6 +91,16 @@ public class F_StockRW extends F_StockR
       throw new StockException( "Net: " + e.getMessage() );
     }
   }
+  public void addMin(String pNum, int amount) throws StockException {
+    DEBUG.trace("f_stockrw:addmin()");
+    try
+    {
+      if (aR_StockRW == null) connect();
+      aR_StockRW.addMin(pNum, amount);
+    } catch (RemoteException e) {
+        throw new RuntimeException(e);
+    }
+  }
 
   /**
    * Modifies Stock details for a given product number.

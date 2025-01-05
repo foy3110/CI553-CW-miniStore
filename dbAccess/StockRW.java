@@ -31,13 +31,41 @@ public class StockRW extends StockR implements StockReadWriter
   {    
     super();        // Connection done in StockR's constructor
   }
-  
+  /**
+   * Stock Manager can change the minimum quantity of a product
+   *
+   * @param pNum   product number
+   * @param amount number min changes too
+   * @return
+   */
+  public synchronized void addMin(String pNum, int amount )
+      throws StockException
+  {
+    DEBUG.trace("DB Stock addMin(%s,%d)",pNum,amount);
+    System.out.println(amount+"stockRw.java");
+    int updates = 0;
+    try{
+      getStatementObject().executeUpdate(
+              "update ProductTable set minQuant ="+amount+" where productNo = '" + pNum + "'" //sql statement to update database for min
+
+
+      );
+
+      updates =1;
+
+    }catch (SQLException e) {
+      throw new StockException("SQL buyStock: " + e.getMessage());
+
+    }
+  }
+
   /**
    * Customer buys stock, quantity decreased if sucessful.
    * @param pNum Product number
    * @param amount Amount of stock bought
    * @return true if succeeds else false
    */
+
   public synchronized boolean buyStock( String pNum, int amount )
          throws StockException
   {
