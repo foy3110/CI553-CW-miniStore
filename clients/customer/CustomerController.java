@@ -1,5 +1,7 @@
 package clients.customer;
 
+import middle.StockException;
+
 /**
  * The Customer Controller
  */
@@ -37,6 +39,13 @@ public class CustomerController
     model.doClear();
   }
 
-  
-}
+  public void doLeft() throws StockException {
+    model.doLeft();
+  }
+
+
+  public void doRight() throws StockException {
+    model.doRight();
+  }
+ }
 

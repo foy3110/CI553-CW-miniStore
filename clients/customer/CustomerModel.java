@@ -24,6 +24,8 @@ public class CustomerModel extends Observable
   private StockReader     theStock     = null;
   private OrderProcessing theOrder     = null;
   private ImageIcon       thePic       = null;
+  private int             location     = 0;
+  String[] objectArraypn = {"0001","0002","0003","0004","0005","0006","0007","0008"};
 
   /*
    * Construct the model of the Customer
@@ -104,7 +106,57 @@ public class CustomerModel extends Observable
     thePic = null;                            // No picture
     setChanged(); notifyObservers(theAction);
   }
-  
+
+
+  public void doRight() throws StockException {
+    theBasket.clear(); //clears basket
+    String theAction="";
+    System.out.println("Right");
+    location++;
+    if(location <8 ) {
+      Product pr = theStock.getDetails(objectArraypn[location]);
+      theAction =                           //   Display
+              String.format("%s : %7.2f (%2d) ", //
+                      pr.getDescription(),              //    description
+                      pr.getPrice(),                    //    price
+                      pr.getQuantity());               //    quantity
+      theBasket.add(pr);                  //   Add to basket
+      thePic = theStock.getImage(objectArraypn[location]);
+    }else{
+      location =-1;
+      doRight();
+    }
+    setChanged(); notifyObservers(theAction);
+
+  }
+
+  /**
+   * uses global intger location to allows the user to click through the catalogue
+   * @throws StockException
+   */
+  public void doLeft() throws StockException {
+    System.out.println("Left");
+    theBasket.clear(); //clears basket
+    String theAction="";
+    System.out.println("Right");
+    location--;
+    if(location >0 ) {
+      Product pr = theStock.getDetails(objectArraypn[location]);
+      theAction =                           //   Display
+              String.format("%s : %7.2f (%2d) ", //
+                      pr.getDescription(),              //    description
+                      pr.getPrice(),                    //    price
+                      pr.getQuantity());               //    quantity
+      theBasket.add(pr);                  //   Add to basket
+      thePic = theStock.getImage(objectArraypn[location]);
+    }else{
+      location =8;
+      doLeft();
+    }
+    setChanged(); notifyObservers(theAction);
+
+  }
+
   /**
    * Return a picture of the product
    * @return An instance of an ImageIcon

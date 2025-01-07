@@ -4,6 +4,7 @@ import catalogue.Basket;
 import catalogue.BetterBasket;
 import clients.Picture;
 import middle.MiddleFactory;
+import middle.StockException;
 import middle.StockReader;
 
 import javax.swing.*;
@@ -21,6 +22,8 @@ public class CustomerView implements Observer
   {
     public static final String CHECK  = "Check";
     public static final String CLEAR  = "Clear";
+    public static final String LEFT   = "Left";
+    public static final String RIGHT  = "Right";
   }
 
   private static final int H = 300;       // Height of window pixels
@@ -33,6 +36,11 @@ public class CustomerView implements Observer
   private final JScrollPane theSP      = new JScrollPane();
   private final JButton     theBtCheck = new JButton( Name.CHECK );
   private final JButton     theBtClear = new JButton( Name.CLEAR );
+  // additions
+  private final JButton      theBtnLeft    = new JButton(Name.LEFT);
+  private final JButton      thebtnRight    = new JButton(Name.RIGHT);
+
+
 
   private Picture thePicture = new Picture(80,80);
   private StockReader theStock   = null;
@@ -90,6 +98,30 @@ public class CustomerView implements Observer
     theOutput.setFont( f );                         //  Uses font  
     cp.add( theSP );                                //  Add to canvas
     theSP.getViewport().add( theOutput );           //  In TextArea
+
+    theBtnLeft.setBounds(8,230,45,40);
+    theBtnLeft.setText("<");
+    theBtnLeft.addActionListener(                   // Call back code
+            e -> {
+                try {
+                    cont.doLeft();
+                } catch (StockException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+    cp.add(theBtnLeft);
+
+    thebtnRight.setBounds(57,230,45,40);
+    thebtnRight.setText(">");
+    thebtnRight.addActionListener(                   // Call back code
+            e -> {
+                try {
+                    cont.doRight();
+                } catch (StockException ex) {
+                    throw new RuntimeException(ex);
+                }
+            });
+    cp.add(thebtnRight);
 
     thePicture.setBounds( 16, 25+60*2, 80, 80 );   // Picture area
     cp.add( thePicture );                           //  Add to canvas
