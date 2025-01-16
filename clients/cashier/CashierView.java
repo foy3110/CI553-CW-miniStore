@@ -45,7 +45,8 @@ public class CashierView implements Observer
           
   public CashierView(  RootPaneContainer rpc,  MiddleFactory mf, int x, int y  )
   {
-    try                                           // 
+
+    try                                           //
     {      
       theStock = mf.makeStockReadWriter();        // Database access
       theOrder = mf.makeOrderProcessing();        // Process order
