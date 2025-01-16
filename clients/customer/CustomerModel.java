@@ -138,9 +138,8 @@ public class CustomerModel extends Observable
     System.out.println("Left");
     theBasket.clear(); //clears basket
     String theAction="";
-    System.out.println("Right");
-    location--;
-    if(location >0 ) {
+    location--; // takes one off location
+    if(location >=0 ) { // adds the product to the strinf action
       Product pr = theStock.getDetails(objectArraypn[location]);
       theAction =                           //   Display
               String.format("%s : %7.2f (%2d) ", //
@@ -150,10 +149,10 @@ public class CustomerModel extends Observable
       theBasket.add(pr);                  //   Add to basket
       thePic = theStock.getImage(objectArraypn[location]);
     }else{
-      location =8;
+      location =objectArraypn.length;// changes the location to the length
       doLeft();
     }
-    setChanged(); notifyObservers(theAction);
+    setChanged(); notifyObservers(theAction);// changes the monitor to the string
 
   }
 

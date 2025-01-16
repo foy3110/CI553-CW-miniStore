@@ -46,12 +46,6 @@ public class CashierModel extends Observable
   }
 
 
-  public void sortBasket(){
-
-
-      }
-
-
 
 
 
@@ -213,9 +207,6 @@ public class CashierModel extends Observable
                      "CashierModel.makeBasket()\n%s", e.getMessage() );
       }
     }
-  }
-  public void doSort(){
-    sortBasket();
   }
   /**
    * return an instance of a new Basket

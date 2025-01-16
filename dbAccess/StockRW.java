@@ -47,12 +47,8 @@ public class StockRW extends StockR implements StockReadWriter
     try{
       getStatementObject().executeUpdate(
               "update ProductTable set minQuant ="+amount+" where productNo = '" + pNum + "'" //sql statement to update database for min
-
-
       );
-
       updates =1;
-
     }catch (SQLException e) {
       throw new StockException("SQL buyStock: " + e.getMessage());
 

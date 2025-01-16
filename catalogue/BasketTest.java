@@ -26,23 +26,6 @@ class BetterBasketTest {
         assertEquals(5, basket.get(0).theMinQuantity);
         assertEquals(17, basket.get(3).getQuantity());
 
-    }
-
-    @Test
-    void sorty() {
-        Basket basket = new Basket();
-        Product p1, p2, p3, p4, p5, p6, p7;
-        p1 = new Product("0003","knive",10,15,5);
-        p2 = new Product("0004","knive",11,14,3);
-        p3 = new Product("0003","knive",10,14,5);
-        p4 = new Product("0003","knive",10,13,5);
-
-
-        basket.add(p1);
-        basket.add(p2);
-        basket.add(p1);
-        basket.add(p1);
-
         assertEquals( true, basket.add(p1));
         assertEquals( 15, basket.get(0).getQuantity());
         basket.clear();

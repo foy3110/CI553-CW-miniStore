@@ -50,7 +50,7 @@ public class Basket extends ArrayList<Product>
       Collections.sort(this, (p1, p2) -> p1.getProductNum().compareTo(p2.getProductNum()));
 
     }
-  }
+    }
   /**
    * Add a product to the Basket.
    * Product is appended to the end of the existing products

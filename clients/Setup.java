@@ -31,17 +31,17 @@ class Setup
                   "price          Float)",
 
           "insert into ProductTable values " +
-                  "('0001', '40 inch LED HD TV', 'images/pic0001.jpg',0, 269.00)",
+                  "('0001', '40 inch LED HD TV', 'images/pic0001.jpg',10, 269.00)",
           "insert into ProductTable values " +
                   "('0002', 'DAB Radio',         'images/pic0002.jpg',0, 29.99)",
           "insert into ProductTable values " +
-                  "('0003', 'Toaster',           'images/pic0003.jpg',0, 19.99)",
+                  "('0003', 'Toaster',           'images/pic0003.jpg',15, 19.99)",
           "insert into ProductTable values " +
                   "('0004', 'Watch',             'images/pic0004.jpg',0, 29.99)",
           "insert into ProductTable values " +
                   "('0005', 'Digital Camera',    'images/pic0005.jpg',0, 89.99)",
           "insert into ProductTable values " +
-                  "('0006', 'MP3 player',        'images/pic0006.jpg',0, 7.99)",
+                  "('0006', 'MP3 player',        'images/pic0006.jpg',5, 7.99)",
           "insert into ProductTable values " +
                   "('0007', '32Gb USB2 drive',   'images/pic0007.jpg',0, 6.99)",
           "insert into ProductTable values " +

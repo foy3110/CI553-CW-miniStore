@@ -31,13 +31,10 @@ public class BetterBasket extends Basket
     }
     return super.add( pr );     // Call add in ArrayList
   }
-  public boolean sorty( ) {
-
-    return(false);
 
   }
 
   // You need to add code here
   // merge the items for same product,
   // or sort the item based on the product number
-}
+
